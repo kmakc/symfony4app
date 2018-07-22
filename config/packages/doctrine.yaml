@@ -17,13 +17,23 @@ doctrine:
 
         url: '%env(resolve:DATABASE_URL)%'
     orm:
+        # Auto generated if debug is true, otherwise
+        # pap bin/console cache:warmup --env=prod --no-debug
         auto_generate_proxy_classes: '%kernel.debug%'
+        # Rules for generating table names, field names
+        # By default, it's the_table_name
         naming_strategy: doctrine.orm.naming_strategy.underscore
+        # Automatically look for mapping configuration
         auto_mapping: true
         mappings:
+            # Entity mapping for App namespace
             App:
                 is_bundle: false
+                # Is of type annotation (could also be XML, YAML)
                 type: annotation
+                # Entities could be found in directory
                 dir: '%kernel.project_dir%/src/Entity'
+                # Entity namespace prefix is
                 prefix: 'App\Entity'
+                # Shorthand alias is App, eg. App:Post, App:User
                 alias: App
