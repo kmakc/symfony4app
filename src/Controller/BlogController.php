@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Service\Greeting;
+use App\Service\VeryBadDesign;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,9 +14,15 @@ class BlogController extends AbstractController
      */
     private $greeting;
 
-    public function __construct(Greeting $greeting)
+    /**
+     * @var VeryBadDesign
+     */
+    private $badDesign;
+
+    public function __construct(Greeting $greeting, VeryBadDesign $badDesign)
     {
-        $this->greeting = $greeting;
+        $this->greeting  = $greeting;
+        $this->badDesign = $badDesign;
     }
 
     /**
