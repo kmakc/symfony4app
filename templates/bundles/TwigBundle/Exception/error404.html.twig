@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Error {{ status_code }}{% endblock %}
+
+{% block body %}
+    <h1>Very bad thing happening</h1>
+    <p>{{ status_text }}, {{ status_code }}</p>
+{% endblock %}
