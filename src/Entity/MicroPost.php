@@ -17,8 +17,13 @@ class MicroPost
      */
     private $id;
 
-    public function getId()
-    {
-        return $this->id;
-    }
+    /**
+     * @ORM\Column(type="string", length=280)
+     */
+    private $text;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $time;
 }
