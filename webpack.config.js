@@ -1,3 +1,5 @@
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+
 var Encore = require('@symfony/webpack-encore');
 
 Encore
@@ -25,6 +27,10 @@ Encore
         './node_modules/bootstrap/dist/css/bootstrap.min.css',
         './assets/css/app.css'
     ])
+    .addPlugin(new CopyWebpackPlugin([
+        // copies to {output/static}
+        {from: './assets/static', to: 'static'}
+    ]))
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
