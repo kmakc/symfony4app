@@ -30,9 +30,9 @@ class MicroPost
     /**
      * @param mixed $id
      */
-    public function setId($id)
+    public function getId()
     {
-        $this->id = $id;
+        return $this->id;
     }
 
     /**
