@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Command;
 
 use App\Service\Greeting;
@@ -23,7 +24,8 @@ class HelloCommand extends Command
 
     protected function configure()
     {
-        $this->setName('app:say-hello')
+        $this
+            ->setName('app:say-hello')
             ->setDescription('Says hello to user')
             ->addArgument('name', InputArgument::REQUIRED);
     }
@@ -34,7 +36,7 @@ class HelloCommand extends Command
         $output->writeln([
             'Hello from the app',
             '==================',
-            ''
+            '',
         ]);
         $output->writeln($this->greeting->greet($name)); // php bin/console app:say-hello Vasya
     }

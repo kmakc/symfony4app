@@ -25,7 +25,7 @@ class SecurityController
     {
         return new Response($this->twig->render('security/login.html.twig', [
             'last_username' => $authenticationUtils->getLastUsername(),
-            'error' => $authenticationUtils->getLastAuthenticationError()
+            'error'         => $authenticationUtils->getLastAuthenticationError()
         ]));
     }
 

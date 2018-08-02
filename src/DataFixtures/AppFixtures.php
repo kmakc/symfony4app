@@ -13,19 +13,19 @@ class AppFixtures extends Fixture
     private const USERS = [
         [
             'username' => 'john_doe',
-            'email' => 'john@gmail.com',
+            'email'    => 'john@gmail.com',
             'password' => 'john123',
             'fullName' => 'John Doe',
         ],
         [
             'username' => 'rob_smith',
-            'email' => 'rob@gmail.com',
+            'email'    => 'rob@gmail.com',
             'password' => 'rob123',
             'fullName' => 'Rob Smith',
         ],
         [
             'username' => 'marry_oly',
-            'email' => 'marry@gmail.com',
+            'email'    => 'marry@gmail.com',
             'password' => 'marry123',
             'fullName' => 'Marry Oly',
         ],

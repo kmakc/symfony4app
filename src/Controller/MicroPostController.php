@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Entity\MicroPost;
@@ -49,18 +50,19 @@ class MicroPostController
     private $flashBag;
 
     public function __construct(
-        \Twig_Environment $twig, MicroPostRepository $microPostRepository,
-        FormFactoryInterface $formFactory,
+        \Twig_Environment      $twig,
+        MicroPostRepository    $microPostRepository,
+        FormFactoryInterface   $formFactory,
         EntityManagerInterface $entityManager,
-        RouterInterface $router,
-        FlashBagInterface $flashBag
+        RouterInterface        $router,
+        FlashBagInterface      $flashBag
     ) {
-        $this->twig = $twig;
+        $this->twig                = $twig;
         $this->microPostRepository = $microPostRepository;
-        $this->formFactory = $formFactory;
-        $this->entityManager = $entityManager;
-        $this->router = $router;
-        $this->flashBag = $flashBag;
+        $this->formFactory         = $formFactory;
+        $this->entityManager       = $entityManager;
+        $this->router              = $router;
+        $this->flashBag            = $flashBag;
     }
 
     /**
@@ -69,7 +71,7 @@ class MicroPostController
     public function index()
     {
         $html = $this->twig->render('micro-post/index.html.twig', [
-           'posts' => $this->microPostRepository->findBy([], ['time' => 'DESC'])
+           'posts' => $this->microPostRepository->findBy([], ['time' => 'DESC']),
         ]);
 
         return new Response($html);

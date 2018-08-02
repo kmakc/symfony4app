@@ -36,7 +36,7 @@ class RegisterController extends Controller
         }
 
         return $this->render('register/register.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 }

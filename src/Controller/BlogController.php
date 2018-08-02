@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -46,9 +47,8 @@ class BlogController
     public function index()
     {
         $html = $this->twig->render(
-            'blog/index.html.twig',
-            [
-                'posts' => $this->session->get('posts')
+            'blog/index.html.twig', [
+                'posts' => $this->session->get('posts'),
             ]
         );
 
@@ -60,11 +60,11 @@ class BlogController
      */
     public function add()
     {
-        $posts = $this->session->get('posts');
+        $posts           = $this->session->get('posts');
         $posts[uniqid()] = [
             'title' => 'A random title ' . rand(1,500),
             'text'  => 'Some random text nr' . rand(1,500),
-            'date'  => new \DateTime()
+            'date'  => new \DateTime(),
         ];
 
         $this->session->set('posts', $posts);
@@ -84,8 +84,7 @@ class BlogController
         }
 
         $html = $this->twig->render(
-            'blog/post.html.twig',
-            [
+            'blog/post.html.twig', [
                 'id'   => $id,
                 'post' => $posts[$id],
             ]

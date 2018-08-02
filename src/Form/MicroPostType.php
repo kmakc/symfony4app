@@ -21,7 +21,7 @@ class MicroPostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => MicroPost::class // bind form to entity
+            'data_class' => MicroPost::class, // bind form to entity
         ]);
     }
 
