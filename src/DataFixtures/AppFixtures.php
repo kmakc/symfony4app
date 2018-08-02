@@ -77,9 +77,6 @@ class AppFixtures extends Fixture
             $manager->persist($user);
             $manager->flush();
         }
-
-
-
     }
 
     private function loadMicroPosts(ObjectManager $manager)
