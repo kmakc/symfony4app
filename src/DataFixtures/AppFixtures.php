@@ -22,25 +22,8 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        $this->loadMicroPosts($manager);
         $this->loadUsers($manager);
-    }
-
-    private function loadMicroPosts(ObjectManager $manager)
-    {
-        for ($i = 0; $i < 10; $i++) {
-            $microPost = new MicroPost();
-            $microPost->setText(
-                'Some random text '.rand(
-                    0,
-                    100
-                )
-            );
-            $microPost->setTime(new \DateTime('2018-03-15'));
-            $manager->persist($microPost);
-        }
-
-        $manager->flush();
+        $this->loadMicroPosts($manager);
     }
 
     private function loadUsers(ObjectManager $manager)
@@ -55,8 +38,27 @@ class AppFixtures extends Fixture
                 'john123'
             )
         );
+        $this->addReference('john_doe', $user);
 
         $manager->persist($user);
+        $manager->flush();
+    }
+
+    private function loadMicroPosts(ObjectManager $manager)
+    {
+        for ($i = 0; $i < 10; $i++) {
+            $microPost = new MicroPost();
+            $microPost->setText(
+                'Some random text '.rand(
+                    0,
+                    100
+                )
+            );
+            $microPost->setTime(new \DateTime('2018-03-15'));
+            $microPost->setUser($this->getReference('john_doe'));
+            $manager->persist($microPost);
+        }
+
         $manager->flush();
     }
 }
