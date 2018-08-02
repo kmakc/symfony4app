@@ -2,3 +2,7 @@
 .container { width:590px; }
 .bg-light { background-image: url(../static/bg.jpg) }
 .container { opacity: 0.85 }
+#post .media{ padding: 0 20px 0 20px; }
+a#post{ text-decoration: none; }
+.container div.border-bottom{ padding: 10px; }
+a#post .media-body{ padding-bottom: 0 !important; }
