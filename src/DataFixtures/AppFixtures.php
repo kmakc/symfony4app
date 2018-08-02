@@ -10,6 +10,39 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    private const USERS = [
+        [
+            'username' => 'john_doe',
+            'email' => 'john@gmail.com',
+            'password' => 'john123',
+            'fullName' => 'John Doe',
+        ],
+        [
+            'username' => 'rob_smith',
+            'email' => 'rob@gmail.com',
+            'password' => 'rob123',
+            'fullName' => 'Rob Smith',
+        ],
+        [
+            'username' => 'marry_oly',
+            'email' => 'marry@gmail.com',
+            'password' => 'marry123',
+            'fullName' => 'Marry Oly',
+        ],
+    ];
+
+    private const POST_TEXT = [
+        'Hello, how are you?',
+        'Its nice weather today',
+        'I need to buy some ice cream!',
+        'I wanna buy a new car',
+        'Theres a problem with my phone',
+        'I need go to a doctor',
+        'What are you up today?',
+        'Yesterday all my trouble was so far away',
+        'How was your day?'
+    ];
+
     /**
      * @var UserPasswordEncoderInterface
      */
@@ -28,34 +61,40 @@ class AppFixtures extends Fixture
 
     private function loadUsers(ObjectManager $manager)
     {
-        $user = new User();
-        $user->setUsername('john_doe');
-        $user->setFullName('John Doe');
-        $user->setEmail('john_doe@doe.com');
-        $user->setPassword(
-            $this->passwordEncoder->encodePassword(
-                $user,
-                'john123'
-            )
-        );
-        $this->addReference('john_doe', $user);
+        foreach (self::USERS as $userData) {
+            $user = new User();
+            $user->setUsername($userData['username']);
+            $user->setFullName($userData['fullName']);
+            $user->setEmail($userData['email']);
+            $user->setPassword(
+                $this->passwordEncoder->encodePassword(
+                    $user,
+                    $userData['password']
+                )
+            );
+            $this->addReference($userData['username'], $user);
 
-        $manager->persist($user);
-        $manager->flush();
+            $manager->persist($user);
+            $manager->flush();
+        }
+
+
+
     }
 
     private function loadMicroPosts(ObjectManager $manager)
     {
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 30; $i++) {
             $microPost = new MicroPost();
             $microPost->setText(
-                'Some random text '.rand(
-                    0,
-                    100
-                )
+                self::POST_TEXT[rand(0, count(self::POST_TEXT) -1)]
             );
-            $microPost->setTime(new \DateTime('2018-03-15'));
-            $microPost->setUser($this->getReference('john_doe'));
+            $date = new \DateTime();
+            $date->modify('-' . rand(0, 100) . ' day');
+            $microPost->setTime($date);
+            $microPost->setUser($this->getReference(
+                self::USERS[rand(0, count(self::USERS) -1)]['username']
+            ));
             $manager->persist($microPost);
         }
 
