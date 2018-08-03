@@ -22,9 +22,7 @@ class FollowingController extends Controller
         $currentUser = $this->getUser();
 
         if ($userToFollow->getId() !== $currentUser->getId()) {
-            $currentUser
-                ->getFollowing()
-                ->add($userToFollow); // no need to persist, its automaticly in this case
+            $currentUser->follow($userToFollow);
 
             $this
                 ->getDoctrine()
