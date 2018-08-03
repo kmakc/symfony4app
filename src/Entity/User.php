@@ -226,7 +226,7 @@ class User implements UserInterface, \Serializable
     /**
      * @return Collection
      */
-    public function getFollowers()
+    public function getFollowers(): Collection
     {
         return $this->followers;
     }
@@ -234,7 +234,7 @@ class User implements UserInterface, \Serializable
     /**
      * @return Collection
      */
-    public function getFollowing()
+    public function getFollowing(): Collection
     {
         return $this->following;
     }
