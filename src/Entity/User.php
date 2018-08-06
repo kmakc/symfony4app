@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @UniqueEntity(fields="email", message="this email already used")
  * @UniqueEntity(fields="username", message="this username already used")
  */
-class User implements UserInterface, \Serializable
+class User implements AdvancedUserInterface, \Serializable
 {
     const ROLE_USER  = 'ROLE_USER';
     const ROLE_ADMIN = 'ROLE_ADMIN';
@@ -88,6 +88,16 @@ class User implements UserInterface, \Serializable
     private $following;
 
     /**
+     * @ORM\Column(type="string", nullable=true, length=30)
+     */
+    private $confirmationToken;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $enabled;
+
+    /**
      * @ORM\ManyToMany(targetEntity="App\Entity\MicroPost", mappedBy="likedBy")
      */
     private $postsLiked;
@@ -98,7 +108,8 @@ class User implements UserInterface, \Serializable
         $this->followers  = new ArrayCollection();
         $this->following  = new ArrayCollection();
         $this->postsLiked = new ArrayCollection();
-        $this->roles = [self::ROLE_USER];
+        $this->roles      = [self::ROLE_USER];
+        $this->enabled    = false;
 
     }
 
@@ -140,7 +151,8 @@ class User implements UserInterface, \Serializable
         return serialize([
             $this->id,
             $this->username,
-            $this->password
+            $this->password,
+            $this->enabled,
         ]);
     }
 
@@ -148,7 +160,8 @@ class User implements UserInterface, \Serializable
     {
         list($this->id,
             $this->username,
-            $this->password) = unserialize($serialized);
+            $this->password,
+            $this->enabled) = unserialize($serialized);
     }
 
     /**
@@ -262,5 +275,57 @@ class User implements UserInterface, \Serializable
     public function getPostsLiked()
     {
         return $this->postsLiked;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getConfirmationToken()
+    {
+        return $this->confirmationToken;
+    }
+
+    /**
+     * @param mixed $confirmationToken
+     */
+    public function setConfirmationToken($confirmationToken)
+    {
+        $this->confirmationToken = $confirmationToken;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * @param mixed $enabled
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    }
+
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->enabled;
     }
 }
