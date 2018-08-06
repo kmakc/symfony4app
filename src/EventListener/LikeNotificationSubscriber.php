@@ -20,7 +20,7 @@ class LikeNotificationSubscriber implements EventSubscriber
 
     public function onFlush(OnFlushEventArgs $args)
     {
-        $em = $args->getEntityManager();
+        $em  = $args->getEntityManager();
         $uow = $em->getUnitOfWork();
 
         /** @var PersistentCollection $collectionUpdate */
@@ -40,8 +40,7 @@ class LikeNotificationSubscriber implements EventSubscriber
             }
 
             /** @var MicroPost $microPost */
-            $microPost = $collectionUpdate->getOwner();
-
+            $microPost    = $collectionUpdate->getOwner();
             $notification = new LikeNotification();
             $notification->setUser($microPost->getUser());
             $notification->setMicroPost($microPost);
