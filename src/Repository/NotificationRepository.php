@@ -18,4 +18,16 @@ class NotificationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Notification::class);
     }
+
+    public function findUnseenByUser(User $user)
+    {
+        $qb = $this->createQueryBuilder('n');
+
+        return $qb
+            ->select('count(n)')
+            ->where('n.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
