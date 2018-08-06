@@ -29,7 +29,7 @@ class NotificationController extends Controller
      */
     public function unreadCount()
     {
-        new JsonResponse([
+        return new JsonResponse([
             'count' => $this->notificationRepository->findUnseenByUser($this->getUser()),
         ]);
     }
