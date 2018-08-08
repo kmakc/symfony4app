@@ -63,5 +63,10 @@ services:
             #- { db_username: user, db_password: my_password }
             - !service { class: PDO, factory: 'database_connection:getWrappedConnection' }
             - { lock_mode: 1 }
+
+    App\EventSubscriber\LocaleSubscriber:
+       arguments:
+         - '%kernel.default_locale%'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
