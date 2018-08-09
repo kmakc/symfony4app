@@ -24,7 +24,7 @@ class LikeNotificationSubscriber implements EventSubscriber
         $uow = $em->getUnitOfWork();
 
         /** @var PersistentCollection $collectionUpdate */
-        foreach ($uow->getScheduledCollectionUpdates()  as $collectionUpdate) {
+        foreach ($uow->getScheduledCollectionUpdates() as $collectionUpdate) {
             if (!$collectionUpdate->getOwner() instanceof MicroPost) {
                 continue;
             }
