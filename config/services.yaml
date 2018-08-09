@@ -64,6 +64,10 @@ services:
             - !service { class: PDO, factory: 'database_connection:getWrappedConnection' }
             - { lock_mode: 1 }
 
+    App\EventSubscriber\UserSubscriber:
+       arguments:
+         $defaultLocale: '%kernel.default_locale%'
+
     App\EventSubscriber\LocaleSubscriber:
        arguments:
          - '%kernel.default_locale%'
